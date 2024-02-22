@@ -1,2 +1,3 @@
-# game-of-cards
-This is a playground for creating a card game in css, html, and javascript. 
+# Game of Cards
+
+This is a playground for creating a card game in CSS, HTML, and JavaScript.
