@@ -1,0 +1,54 @@
+.card {
+  perspective: 100rem;
+}
+
+.card-inner {
+  position: relative;
+  width: 10rem;
+  aspect-ratio: 1/1;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-backside {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-backside::after {
+  content: "Bullshit Memory";
+  font-size: 1.5rem;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  text-shadow: 0.2rem 0.2rem 0.4rem var(--color-black);
+}
+
+.card-front {
+  background: var(--color-white);
+  transform: rotateY(180deg);
+}
+
+.card-backside {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+  border: 0.7rem solid #ffffff;
+}
