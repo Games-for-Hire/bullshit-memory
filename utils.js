@@ -15,12 +15,12 @@ const setCookie = function (key, value) {
     var now = new Date();
     var expires = 1000 * 60 * 10;
     var expireDate = new Date(now.getTime() + expires);
-    document.cookie = key + "=" + value + "; expires=" + expireDate.toGMTString() + ";";
+    document.cookie = key + "=" + value + "; expires=" + expireDate.toGMTString() + "; path=/;";
 }
 
 const clearCookie = function(key) {
     var now = new Date();
     var expires = 1000 * 60 * 10;
     var expireDate = new Date(now.getTime() - expires);
-    document.cookie = key + "=; expires=" + expireDate.toGMTString() + ";";
+    document.cookie = key + "=; expires=" + expireDate.toGMTString() + "; path=/;";
 }
