@@ -24,7 +24,7 @@ A new game is initialized by one player who chooses grid size and game mode.
 
 A player can invite another player to join the game by link. By clicking the link, the invited player will be shown a page with all set game details (e.g. grid size, player who sent them the invitation) on which they can either accept or decline the invitation.
 
-When a player accepts the invitation, they are redirected to the game page where they can see the game board.
+When a player accepts the invitation, they are redirected to the game page, where they can see the game board.
 
 The user who send the invitation will be notified if the invited player accepted or declined the invitation by push notification.
 
