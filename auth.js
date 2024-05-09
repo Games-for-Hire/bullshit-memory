@@ -21,7 +21,7 @@ if (value.length > 0) {
 
 // workaround, since saving the cookie directly does not work :-/
 if (urlParams.get("status") === "okay") {
-  window.location.replace("/?status=session");
+  window.location.replace(`${config.context}?status=session`);
 }
 
 // save the session to a cookie
@@ -32,7 +32,7 @@ if (urlParams.get("status") === "session") {
         function (response) {
           var value = JSON.stringify(response);
           setCookie(config.sessionName, value);
-          window.location.replace("/");
+          window.location.replace(config.context);
         },
         function (error) {
           console.log("error", error); // Failure
