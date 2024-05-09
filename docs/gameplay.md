@@ -26,6 +26,6 @@ A player can invite another player to join the game by link. By clicking the lin
 
 When a player accepts the invitation, they are redirected to the game page, where they can see the game board.
 
-The user who send the invitation will be notified if the invited player accepted or declined the invitation by push notification.
+The user who sent the invitation will be notified if the invited player accepted or declined the invitation by push notification.
 
 All players must be present to be able to start the game. The player who clicks the start button first starts the game and has the first draw.
