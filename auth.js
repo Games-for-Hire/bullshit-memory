@@ -21,7 +21,9 @@ if (value.length > 0) {
 
 // workaround, since saving the cookie directly does not work :-/
 if (urlParams.get("status") === "okay") {
-  window.location.replace(`${config.context}?status=session`);
+  var url = `${config.context}?status=session`;
+  console.log("debug", url)
+  //window.location.replace(`${config.context}?status=session`);
 }
 
 // save the session to a cookie
