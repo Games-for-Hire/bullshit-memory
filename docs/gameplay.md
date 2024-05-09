@@ -2,7 +2,7 @@
 
 ## The game
 
-This is a simple memory game where you have to find pairs of cards. The player can choose between 4x4, 6x6, or 8x8 respectively, is played on a 8x8 grid.
+This is a simple memory game where you have to find pairs of cards. The player can choose to play on a 4x4, 6x6, or 8x8 grid.
 
 The cards are shuffled and placed face down on the grid. The player can flip two cards at a time. If the cards match, they are removed from the grid. If they don't match, they are flipped back face down. The game ends when all pairs are found.
 
