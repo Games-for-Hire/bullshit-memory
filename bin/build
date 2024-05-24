@@ -2,8 +2,8 @@
 
 set -eu
 
-mkdir dist
+mkdir -p dist
 
-sed s/--version--/$(git log -n 1 | head -n 1 | sed -e 's/^commit //' | head -c 8)/g prod/config.js > dist/config.js
 cp index.* dist/
 cp *.js dist/
+sed s/--version--/$(git log -n 1 | head -n 1 | sed -e 's/^commit //' | head -c 8)/g prod/config.js > dist/config.js
