@@ -20,7 +20,7 @@ jobs:
     - name: Checkout gh-pages
       run: |    
         git checkout -b gh-pages
-    - name: Commit new deployment
+    - name: Update Version
       run: |    
         sed s/--version--/$(git log -n 1 | head -n 1 | sed -e 's/^commit //' | head -c 8)/g prod/config.js > config.js
     - name: Commit new deployment
@@ -32,5 +32,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
         force: true
