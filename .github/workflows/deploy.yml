@@ -4,32 +4,43 @@ on:
   push:
     branches:
       - deployment
-  pull_request:
-    branches:
-      - deployment
 
 jobs:
-  deploy:
+  prepare:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
-    - name: Checkout gh-pages
-      run: |    
-        git checkout -b gh-pages
+        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository
     - name: Update Version
       run: |    
         sed s/--version--/$(git log -n 1 | head -n 1 | sed -e 's/^commit //' | head -c 8)/g prod/config.js > config.js
-    - name: Commit new deployment
-      run: |    
-        git config --local user.email "diego@github"
-        git config --local user.name "diego[bot]"
-        git commit -a -m "Deployment $(date)"
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+    - name: Setup Pages
+      if: github.ref == 'refs/heads/deployment'
+      uses: actions/configure-pages@v3
+
+    - name: Upload Artifact
+      if: github.ref == 'refs/heads/deployment'
+      uses: actions/upload-pages-artifact@v1
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        force: true
+        # location of the coverage artifacts
+        path: "."
+
+  deploy-coverage:
+    if: github.ref == 'refs/heads/deployment'
+    runs-on: ubuntu-latest
+    needs: prepare
+    
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      # environment created automatically by GitHub
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
