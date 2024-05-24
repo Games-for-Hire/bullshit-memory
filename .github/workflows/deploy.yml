@@ -1,9 +1,9 @@
-name: GitHub Pages
+name: Deploy
 
 on:
-    push:
-        branches:
-        - deployment
+  push:
+    branches:
+    - main
 
 jobs:
   build:
@@ -16,4 +16,4 @@ jobs:
     - run: ./bin/update-gh-pages
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DEPLOY_BRANCH: deployment
+        DEPLOY_BRANCH: main
