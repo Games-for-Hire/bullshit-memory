@@ -3,13 +3,13 @@ name: Deploy
 on:
   push:
     branches:
-      - main
+      - deployment
   pull_request:
     branches:
-      - main
+      - deployment
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -27,6 +27,7 @@ jobs:
         git config --local user.email "diego@github"
         git config --local user.name "diego[bot]"
         git commit -a -m "Deployment $(date)"
-    - name: Commit new deployment
-      run: |    
-        git push -uf
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        force: true
