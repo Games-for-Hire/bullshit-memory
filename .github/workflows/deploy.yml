@@ -29,4 +29,4 @@ jobs:
         git commit -a -m "Deployment $(date)"
     - name: Commit new deployment
       run: |    
-        git push -uf --set-upstream origin gh-pages
+        git push -uf
