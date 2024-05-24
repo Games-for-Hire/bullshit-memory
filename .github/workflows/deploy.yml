@@ -6,6 +6,9 @@ on:
         - deployment
 
 jobs:
+  permissions:
+    pages: write
+    contents: write
   build:
     runs-on: ubuntu-latest
     steps:
