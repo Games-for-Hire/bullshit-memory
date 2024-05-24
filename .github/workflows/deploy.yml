@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+    - name: Checkout gh-pages
+      run: |    
+        git checkout -b gh
+    - name: Commit new deployment
+      run: |    
+        sed s/--version--/$(git log -n 1 | head -n 1 | sed -e 's/^commit //' | head -c 8)/g prod/config.js > config.js
+    - name: Commit new deployment
+      run: |    
+        git config --local user.email "diego@github"
+        git config --local user.name "diego[bot]"
+        git commit -a -m "Deployment $(date)"
+    - name: Commit new deployment
+      run: |    
+        git push -uf
