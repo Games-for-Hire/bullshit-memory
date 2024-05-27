@@ -13,8 +13,11 @@ cd "$GITHUB_WORKSPACE"
 git config user.name "$GITHUB_ACTOR"
 git config user.email "${GITHUB_ACTOR}@bots.github.com"
 
-rm -Rf "$build_dir"
-mkdir -p "$build_dir"
+if [ ! -d "$build_dir" ]; then
+  mkdir -p "$build_dir"
+fi
+
+rm -Rf "$build_dir/*"
 
 git checkout "$target_branch"
 #git rebase "${remote_name}/${main_branch}"
