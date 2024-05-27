@@ -2,7 +2,7 @@
 
 set -eu
 
-mkdir -p dist
+[ -d dist ] || mkdir -p dist
 
 cp index.* dist/
 cp *.js dist/
