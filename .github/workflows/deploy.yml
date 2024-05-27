@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      contents: write
+    steps:
+    - uses: actions/checkout@v1
+    - run: ./bin/update-gh-pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEPLOY_BRANCH: main
