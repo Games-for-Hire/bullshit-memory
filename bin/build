@@ -2,17 +2,6 @@
 
 set -eu
 
-build_dir=$1
+echo "preparing deployment"
 
-echo "building dist"
-
-if [ ! -d "$build_dir" ]; then
-  echo "$build_dir does not exists. Creating it!"
-  mkdir -p "$build_dir"
-fi
-
-rm -Rf "$build_dir/*"
-
-cp index.* dist/
-cp *.js dist/
-sed s/--version--/$(git log -n 1 | head -n 1 | sed -e 's/^commit //' | head -c 8)/g prod/config.js > dist/config.js
+sed s/--version--/$(git log -n 1 | head -n 1 | sed -e 's/^commit //' | head -c 8)/g prod/config.js > config.js

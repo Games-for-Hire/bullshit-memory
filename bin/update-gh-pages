@@ -6,17 +6,16 @@ repo_uri="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
 remote_name="origin"
 main_branch="${DEPLOY_BRANCH}"
 target_branch="gh-pages"
-build_dir="dist"
 
 cd "$GITHUB_WORKSPACE"
 
 git config user.name "$GITHUB_ACTOR"
 git config user.email "${GITHUB_ACTOR}@bots.github.com"
 
-./bin/build "$build_dir"
+./bin/build
 
 git checkout "$target_branch"
-git add -f "$build_dir"
+git add -f .
 
 git commit -m "updated GitHub Pages"
 if [ $? -ne 0 ]; then
