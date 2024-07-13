@@ -14,10 +14,10 @@ git config user.email "${GITHUB_ACTOR}@bots.github.com"
 
 ./bin/build
 
-git checkout "$target_branch"
+git checkout -b "$target_branch"
 git add -f .
 
-git commit -m "updated GitHub Pages"
+git commit -m "updated GitHub Pages $(date)"
 if [ $? -ne 0 ]; then
     echo "nothing to commit"
     exit 0
