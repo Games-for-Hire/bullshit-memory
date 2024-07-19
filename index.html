@@ -8,68 +8,46 @@
 
     <!-- <link rel="stylesheet" href="/index.css" type="text/css" /> -->
     <!-- <link rel="icon" href="favicon.ico" type="image/x-icon" /> -->
-
-    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
     <!-- some utility functions -->
-    <script src="./utils.js"></script>
+    <script src="./js/utils.js"></script>
     <!-- page config (e.g. local) -->
     <script src="./config.js"></script>
+    <style>
+      .login-button {
+          display: block;
+          width: 100px;
+          margin: 20% auto;
+      }
+      .button {
+        font: bold 11px Arial;
+        text-align: center;
+        padding: 6px;
+        text-decoration: none;
+        background-color: #EEEEEE;
+        color: #333333;
+        padding: 2px 6px 2px 6px;
+        border-top: 1px solid #CCCCCC;
+        border-right: 1px solid #333333;
+        border-bottom: 1px solid #333333;
+        border-left: 1px solid #CCCCCC;
+      }
+    </style>
   </head>
 
   <body>
     <header></header>
     <main>
-
+      <a class="button login-button" href="app.html">Login</a>
     </main>
     <footer></footer>
-
     <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const { Client, Account, ID } = Appwrite;
-      const client = new Client();
-      const account = new Account(client);
-      client.setEndpoint(config.endpoint).setProject(config.projectId);
-
       const value = readCookie(config.sessionName);
+      const page = `${config.context}/app.html`
       if (value.length > 0) {
         const session = JSON.parse(value);
-        account.get().then(
-          function (response) {
-            console.log("account", response); // Success
-          },
-          function (error) {
-            console.log("error", error); // Failure
-          }
-        );
-      } else if (urlParams.size < 1) {
-        account.createOAuth2Session("github", config.redirect);
-      }
-
-      // workaround, since saving the cookie directly does not work :-/
-      if (urlParams.get("status") === "okay") {
-        window.location.replace(`${config.context}?status=session`);
-      }
-
-      // save the session to a cookie
-      if (urlParams.get("status") === "session") {
-        account.getSession("current").then(
-          function (session) {
-            account.get().then(
-              function (response) {
-                var value = JSON.stringify(response);
-                setCookie(config.sessionName, value);
-                window.location.replace(`${config.context}`);
-              },
-              function (error) {
-                console.log("error", error); // Failure
-                clearCookie(config.sessionName);
-              }
-            );
-          },
-          function (error) {
-            console.log(error); // Failure
-          }
-        );
+        if(session) {
+          window.location.replace(page);
+        }
       }
     </script>
   </body>
