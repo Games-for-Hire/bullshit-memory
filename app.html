@@ -10,10 +10,13 @@
     <!-- <link rel="icon" href="favicon.ico" type="image/x-icon" /> -->
 
     <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
-    <!-- some utility functions -->
-    <script src="./js/utils.js"></script>
     <!-- page config (e.g. local) -->
     <script src="./config.js"></script>
+    <!-- some utility functions -->
+    <script src="./js/utils.js"></script>
+    <!-- authentication functions -->
+    <script src="./js/auth.js"></script>
+
   </head>
 
   <body>
@@ -24,60 +27,30 @@
     <footer></footer>
 
     <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      const { Client, Account, ID } = Appwrite;
-      const client = new Client();
-      const account = new Account(client);
       const page = `${config.context}app.html`
-      client.setEndpoint(config.endpoint).setProject(config.projectId);
-      const value = readCookie(config.sessionName);
+      const userData = document.querySelector("[data-container=user]");
 
-
-      if (value.length > 0) {
-        const session = JSON.parse(value);
-        account.get().then(
-          function (response) {
-            document.querySelector("[data-container=user]").innerHTML = `
-            <h1>Hello User</h1>
-            <br />
-            ${JSON.stringify(response)}
-            `
-            console.log("account", response); // Success
-          },
-          function (error) {
-            console.log("error", error); // Failure
-          }
-        );
-      } else if (urlParams.size < 1) {
-        account.createOAuth2Session("github", config.redirect);
+      const loginHandler = function(response) {
+        let header = document.createElement('h1')
+        header.innerHTML = "Hello User"
+        let data = document.createElement('dl')
+        mapValues(response, (k, v) => {
+          data.innerHTML += `<dt>${k}</dt><dd>${v}</dd>`
+        })
+        userData.appendChild(header);
+        userData.appendChild(data);
+        console.log("account", response); // Success
       }
 
-      // workaround, since saving the cookie directly does not work :-/
-      if (urlParams.get("status") === "okay") {
-        window.location.replace(page + '?status=session');
+      const errorHandler = function(error) {
+        userData.innerHTML = "<h1>ERROR:</h1>"+error
+        console.log("error", error); // Failure
       }
 
-      // save the session to a cookie
-      if (urlParams.get("status") === "session") {
-        account.getSession("current").then(
-          function (session) {
-            account.get().then(
-              function (response) {
-                var value = JSON.stringify(response);
-                setCookie(config.sessionName, value);
-                window.location.replace(page);
-              },
-              function (error) {
-                console.log("error", error); // Failure
-                clearCookie(config.sessionName);
-              }
-            );
-          },
-          function (error) {
-            console.log(error); // Failure
-          }
-        );
-      }
+      PerformLogin(config, loginHandler, errorHandler)
+      CheckSession()
+      PersistSession(errorHandler)
+
     </script>
   </body>
 </html>
