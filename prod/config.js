@@ -4,6 +4,6 @@ const config = {
     sessionName: "PROD_SESSION",
     projectId: "663ccc32dae944310b32",
     endpoint: "https://db.myglobal.ws/v1",
-    redirect: "https://games-for-hire.github.io/bullshit-memory/?status=okay",
+    redirect: "https://games-for-hire.github.io/bullshit-memory/app.html?status=okay",
     version: "--version--"
 }

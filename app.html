@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Bullshit Memory</title>
+
+    <!-- <link rel="stylesheet" href="/index.css" type="text/css" /> -->
+    <!-- <link rel="icon" href="favicon.ico" type="image/x-icon" /> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.1"></script>
+    <!-- page config (e.g. local) -->
+    <script src="./config.js"></script>
+    <!-- some utility functions -->
+    <script src="./js/utils.js"></script>
+    <!-- authentication functions -->
+    <script src="./js/auth.js"></script>
+
+  </head>
+
+  <body>
+    <header></header>
+    <main>
+      <div data-container="user"></div>
+    </main>
+    <footer></footer>
+
+    <script>
+      const page = `${config.context}app.html`
+      const userData = document.querySelector("[data-container=user]");
+
+      const loginHandler = function(response) {
+        let header = document.createElement('h1')
+        header.innerHTML = "Hello User"
+        let data = document.createElement('dl')
+        mapValues(response, (k, v) => {
+          data.innerHTML += `<dt>${k}</dt><dd>${v}</dd>`
+        })
+        userData.appendChild(header);
+        userData.appendChild(data);
+        console.log("account", response); // Success
+      }
+
+      const errorHandler = function(error) {
+        userData.innerHTML = "<h1>ERROR:</h1>"+error
+        console.log("error", error); // Failure
+      }
+
+      PerformLogin(config, loginHandler, errorHandler)
+      CheckSession()
+      PersistSession(errorHandler)
+
+    </script>
+  </body>
+</html>
