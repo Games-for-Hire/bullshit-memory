@@ -3,6 +3,7 @@ const { Client, Account, ID } = Appwrite;
 const client = new Client();
 const account = new Account(client);
 client.setEndpoint(config.endpoint).setProject(config.projectId);
+const page = `${config.host}${config.context}app.html`
 
 const PerformLogin = function(config, loginHandler, errorHandler) {
   const value = readCookie(config.sessionName);

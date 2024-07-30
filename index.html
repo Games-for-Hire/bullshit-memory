@@ -37,12 +37,12 @@
   <body>
     <header></header>
     <main>
-      <a class="button login-button" href="app.html">Login</a>
+      <a class="button login-button" href="app.html">Login<br />with<br />GitHub</a>
     </main>
     <footer></footer>
     <script>
       const value = readCookie(config.sessionName);
-      const page = `${config.context}/app.html`
+      const page = `${config.host}${config.context}app.html`
       if (value.length > 0) {
         const session = JSON.parse(value);
         if(session) {
