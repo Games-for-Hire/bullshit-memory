@@ -1,10 +1,10 @@
 const config = {
-    env: "local",
+    env: "prod",
     context: "/",
-    host: "http://local.bullshit-memory.club:5502",
-    sessionName: "LOCAL_DEV_SESSION",
-    projectId: "65da39e5573f565f617e",
+    host: "https://bullshit-memory.club",
+    sessionName: "PROD_SESSION",
+    projectId: "663ccc32dae944310b32",
     endpoint: "https://appwrite.bullshit-memory.club/v1",
-    redirect: "http://local.bullshit-memory.club:5502/app.html?status=okay",
-    version: "development"
+    redirect: "https://bullshit-memory.club/app.html?status=okay",
+    version: "7bfbd57c"
 }
