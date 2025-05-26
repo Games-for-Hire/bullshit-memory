@@ -1,7 +1,15 @@
 const urlParams = new URLSearchParams(window.location.search);
-const { Client, Account, ID } = Appwrite;
-const client = new Client();
+const { Client, Account, Databases, OAuthProvider} = Appwrite;
+//const client = new Client();
+//const account = new Account(client);
+
+const client = new Client()
+    .setEndpoint(config.endpoint)
+    .setProject(config.projectId);
+
 const account = new Account(client);
+const databases = new Databases(client);
+
 client.setEndpoint(config.endpoint).setProject(config.projectId);
 const page = `${config.host}${config.context}app.html`
 
@@ -14,7 +22,7 @@ const PerformLogin = function(config, loginHandler, errorHandler) {
       errorHandler
     );
   } else if (urlParams.size < 1) {
-    account.createOAuth2Session("github", config.redirect);
+    account.createOAuth2Session(OAuthProvider.Github, config.redirect);
   }
 }
 
@@ -30,6 +38,7 @@ const PersistSession = function(errorHandler) {
   if (urlParams.get("status") === "session") {
     account.getSession("current").then(
       function (session) {
+        console.log("session", session);
         account.get().then(
           function (response) {
             var value = JSON.stringify(response);
